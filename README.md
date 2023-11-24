@@ -111,10 +111,10 @@ In this case, you either have to ask your system admin to grant your Zen Cart da
 
 # Uninstalling
 
-If you wish to remove this addon from your shop, you can delete its files from your Zen Cart filesystem, but it will have left some database entities in your system.  These should not cause any problems, but there's no point leaving them there.  You should run the `soundex_search_uninstall.php` script as a Zen Cart Superuser, but first you should remove the `init_soundex_search.php` script, otherwise it is likely to automatically re-install the addon as soon as you have removed it.
+If you wish to remove this addon from your shop, you can delete its files from your Zen Cart filesystem, but it will have left some database entities in your system.  These should not cause any problems, but there's no point leaving them there.  You should run the `soundex_search_uninstall.php` script as a Zen Cart Superuser, but first you should remove the `init_soundex_search.php` script and its related config file, otherwise it is likely to automatically re-install the addon as soon as you have removed it.
 
-- remove or rename the `YOUR_ADMIN/includes/init_includes/init_soundex_search.php` file.  *Leave the rest of the files in place, as they are required for the next step*
-- run the uninstall script by entering it into your web browser as if it were an admin page, for example: `https://my-shop.com/YOUR_ADMIN/index.php?cmd=soundex_search_uninstall.php`
+- remove or rename the `YOUR_ADMIN/includes/init_includes/init_soundex_search.php` and `YOUR_ADMIN/includes/auto_loaders/config.sounded_search.php` files.  You can simply rename them and add 'xxx' to the start of their filenames.  *Leave the rest of the files in place, as they are required for the next step*
+- run the uninstall script by entering it into your web browser as if it were an admin page, for example: `https://my-shop.com/YOUR_ADMIN/index.php?cmd=soundex_search_uninstall`
 
 You should see a series of 'success' messages in the header.  Once everything is cleaned up, it is safe to delete the files installed when you copied the files from the distribution zip file.  At the time of writing, these are:
 

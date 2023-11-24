@@ -32,6 +32,9 @@ foreach ($dbEntityMap as $info) {
     $messageStack->add("Procedure $proc_name removed OK", 'success');
 }
 
+$db->Execute("DROP PROCEDURE soundex_search_init_for_value;");
+$messageStack->add("Procedure soundex_search_init_for_value removed OK", 'success');
+
 // Remove the lookup table
 $db->Execute('DROP TABLE ' . TABLE_SOUNDEX_LOOKUP);
 $messageStack->add("Table " . TABLE_SOUNDEX_LOOKUP . " removed OK", 'success');
