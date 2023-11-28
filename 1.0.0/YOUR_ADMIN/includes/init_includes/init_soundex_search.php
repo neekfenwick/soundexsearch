@@ -234,7 +234,7 @@ function createSoundexSearchDBEntities() {
             AFTER UPDATE
             ON {$info['table_name']} FOR EACH ROW
             BEGIN
-                CALL init_{$info['table_name']}_{$info['column_name']}_soundex (
+                CALL {$proc_name} (
                     NEW.{$info['key_name']}
                 );
             END");

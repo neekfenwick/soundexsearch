@@ -9,8 +9,9 @@ This software is distributed under the [GPL 3.0](gpl-3.0.md) license.
 | Addon Version | Zen Cart Version |
 |---------------|------------------|
 | v1.0.0 | Zen Cart 1.5.8 |
+| v1.0.1 | Zen Cart 1.5.8 |
 
-Minimum version of Zen Cart is 1.5.8, because of the extra data passed to the notifier hooks from the `class.search` code.
+Minimum version of Zen Cart is 1.5.8, because of the extra data passed to the notifier hooks.  See "Earlier Zen Cart Versions" later.
 
 # Introduction
 
@@ -22,6 +23,8 @@ Options are included to search against the commonly matched fields supported by 
 - Manufacturer Name
 - Meta Tag Title
 - Meta Tag Description
+
+There is no dedicated Admin page, the functionality is simply invoked when you use the site 'Search' function.
 
 # Installation
 
@@ -77,6 +80,8 @@ The first time you install the addon, you should visit the admin site of your sh
 
 *Until this is done, your customer facing shop site may not function correctly* because attempting to search, or possibly use other addons that trigger parts of this addon, will fail because the database entities it requires do not exist.
 
+If you need to re-run the initialisation you can manually drop the core lookup table in phpMyAdmin or the "Tools->Install SQL Patches" Zen Cart admin page with the command: `DROP TABLE soundex_lookup;` then revisit any admin page.  Note that this will only attempt to re-create entities required by the addon, if you want to clear the database of addon entities first then run the uninstall script described later, then re-run the initialisation.
+
 ## Example first time initialisation
 
 When visiting your admin site for the first time, you should see a series of 'Success' messages in the notification area at the top of the page.
@@ -103,18 +108,18 @@ If you get a blank admin page, there has probably been a low level error trying 
 
 ### Insufficient Privileges
 
-If your user doesn't have suitable permissions to create the database entities required by Sounded Search, you should see a sensible error message in your admin header like this:
+If your user doesn't have suitable permissions to create the database entities required by Soundex Search, you should see a sensible error message in your admin header like this:
 
 ![Checking if we have CREATE PROCEDURE permission. - (1044): Access denied for user 'myuser'@'localhost' to database 'zencart'](resources/install_error.webp)
 
-In this case, you either have to ask your system admin to grant your Zen Cart database user (in this example, `myuser`@`localhost`) privileges, or you will not be able to run the addon.
+In this case, you must ask your system admin to grant your Zen Cart database user (in this example, `myuser`@`localhost`) privileges, or you will not be able to run the addon.  Especially on shared hosting, you may find your username only has basic priviliges to query data or make basic modifications to the database structure.  On top of these more priviliges, these extra priviliges required by this addon will be something like: `CREATE ROUTINE`, `ALTER ROUTINE`, `EXECUTE`, `TRIGGER`.
 
 # Uninstalling
 
 If you wish to remove this addon from your shop, you can delete its files from your Zen Cart filesystem, but it will have left some database entities in your system.  These should not cause any problems, but there's no point leaving them there.  You should run the `soundex_search_uninstall.php` script as a Zen Cart Superuser, but first you should remove the `init_soundex_search.php` script and its related config file, otherwise it is likely to automatically re-install the addon as soon as you have removed it.
 
-- remove or rename the `YOUR_ADMIN/includes/init_includes/init_soundex_search.php` and `YOUR_ADMIN/includes/auto_loaders/config.sounded_search.php` files.  You can simply rename them and add 'xxx' to the start of their filenames.  *Leave the rest of the files in place, as they are required for the next step*
-- run the uninstall script by entering it into your web browser as if it were an admin page, for example: `https://my-shop.com/YOUR_ADMIN/index.php?cmd=soundex_search_uninstall`
+1. remove or rename the `YOUR_ADMIN/includes/init_includes/init_soundex_search.php` and `YOUR_ADMIN/includes/auto_loaders/config.soundex_search.php` files.  You can simply rename them and add 'xxx' to the start of their filenames.  *Leave the rest of the files in place, as they are required for the next step*
+2. run the uninstall script by entering it into your web browser as if it were an admin page, for example: `https://my-shop.com/YOUR_ADMIN/index.php?cmd=soundex_search_uninstall`
 
 You should see a series of 'success' messages in the header.  Once everything is cleaned up, it is safe to delete the files installed when you copied the files from the distribution zip file.  At the time of writing, these are:
 

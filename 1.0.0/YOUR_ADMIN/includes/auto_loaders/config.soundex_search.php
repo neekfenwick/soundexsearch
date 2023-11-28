@@ -1,8 +1,7 @@
 <?php
-/**
- * Part of the Soundex Search plugin by neekfenwick, provided under GPL 3.0 license.
- * Copyright (C) 2023, Nick Fenwick. All rights reserved.
- */
+
+// Part of the Soundex Search plugin, provided under GPL 2.0 license by neekfenwick
+// Copyright (C) 2013-2023, Nick Fenwick. All rights reserved.
 
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');

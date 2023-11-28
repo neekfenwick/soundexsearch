@@ -26,9 +26,9 @@ foreach ($dbEntityMap as $info) {
     $proc_name = procNameForTableColumn($info['table_name'], $info['column_name']);
     $trigger_name = triggerName($info['trigger_name']);
 
-    $db->Execute("DROP TRIGGER {$trigger_name};");
+    $db->Execute("DROP TRIGGER IF EXISTS {$trigger_name};");
     $messageStack->add("Trigger $trigger_name removed OK", 'success');
-    $db->Execute("DROP PROCEDURE {$proc_name};");
+    $db->Execute("DROP PROCEDURE IF EXISTS {$proc_name};");
     $messageStack->add("Procedure $proc_name removed OK", 'success');
 }
 
@@ -36,7 +36,7 @@ $db->Execute("DROP PROCEDURE soundex_search_init_for_value;");
 $messageStack->add("Procedure soundex_search_init_for_value removed OK", 'success');
 
 // Remove the lookup table
-$db->Execute('DROP TABLE ' . TABLE_SOUNDEX_LOOKUP);
+$db->Execute('DROP TABLE IF EXISTS ' . TABLE_SOUNDEX_LOOKUP);
 $messageStack->add("Table " . TABLE_SOUNDEX_LOOKUP . " removed OK", 'success');
 
 ?>
