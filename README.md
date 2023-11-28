@@ -45,14 +45,14 @@ Unzip the addon files into a temporary directory (for example, create a director
 
 There are zero file conflicts with core Zen Cart, so no files will be overwritten during installation.  You have most likely renamed your admin folder (as recommended in the Zen Cart installation guide).  Rename the `YOUR_ADMIN` folder to the name of your admin folder.
 
-You should copy all files and subfolders from the Version directory of your choice into your Zen Cart shop filesystem, here we will assume the first release `1.0.0`.
+You should copy all files and subfolders from the `src` directory into your Zen Cart shop filesystem.
 
 For example:
 
-    $ mv 1.0.0/YOUR_ADMIN 1.0.0/my_admin_name
-    $ cp -r 1.0.0/* /path/to/shop/
+    $ mv src/YOUR_ADMIN src/my_admin_name
+    $ cp -r src/* /path/to/shop/
 
-If you are installing over sFTP, then drag the entire contents of the `1.0.0` folder into the root directory of your web site (next to `index.php` and `zc_plugins`);
+If you are installing over sFTP, then drag the entire contents of the `src` folder into the root directory of your web site (next to `index.php` and `zc_plugins`);
 
 ## Earlier Zen Cart Versions
 
