@@ -53,22 +53,34 @@ class zcObserverSoundexSearchObserver extends base
         // Replace with pns.word_soundex = SOUNDEX('anything')
         // This is highly dependent on the exact names used in the Search class SQL building.
         if (SOUNDEX_SEARCH_MATCH_PRODUCTS_NAME == 'Yes') {
-            $where_str = preg_replace("/pd\.products_name LIKE '%([^%]*)%'/", "\\0 OR sl.word_soundex = SOUNDEX('\\1')", $where_str);
+            $where_str = preg_replace("/pd\.products_name LIKE '%([^%]*)%'/", "\\0 OR (
+                sl.table_name = 'products_description' AND sl.column_name = 'products_name' AND sl.word_soundex = SOUNDEX('\\1')
+            )", $where_str);
         }
         if ($search_in_description && SOUNDEX_SEARCH_MATCH_PRODUCTS_DESCRIPTION == 'Yes') {
-            $where_str = preg_replace("/pd\.products_description LIKE '%([^%]*)%'/", "\\0 OR sl.word_soundex = SOUNDEX('\\1')", $where_str);
+            $where_str = preg_replace("/pd\.products_description LIKE '%([^%]*)%'/", "\\0 OR (
+                sl.table_name = 'products_description' AND sl.column_name = 'products_description' AND sl.word_soundex = SOUNDEX('\\1')
+            )", $where_str);
         }
         if (SOUNDEX_SEARCH_MATCH_PRODUCTS_MODEL == 'Yes') {
-            $where_str = preg_replace("/p\.products_model LIKE '%([^%]*)%'/", "\\0 OR sl.word_soundex = SOUNDEX('\\1')", $where_str);
+            $where_str = preg_replace("/p\.products_model LIKE '%([^%]*)%'/", "\\0 OR (
+                sl.table_name = 'products' AND sl.column_name = 'products_model' AND sl.word_soundex = SOUNDEX('\\1')
+            )", $where_str);
         }
         if (SOUNDEX_SEARCH_MATCH_MANUFACTURERS_NAME == 'Yes') {
-            $where_str = preg_replace("/m\.manufacturers_name LIKE '%([^%]*)%'/", "\\0 OR sl.word_soundex = SOUNDEX('\\1')", $where_str);
+            $where_str = preg_replace("/m\.manufacturers_name LIKE '%([^%]*)%'/", "\\0 OR (
+                sl.table_name = 'manufacturers' AND sl.column_name = 'manufacturers_name' AND sl.word_soundex = SOUNDEX('\\1')
+            )", $where_str);
         }
         if (ADVANCED_SEARCH_INCLUDE_METATAGS == 'true' && SOUNDEX_SEARCH_MATCH_METATAGS_PRODUCTS_KEYWORDS == 'Yes') {
-            $where_str = preg_replace("/mtpd\.metatags_keywords LIKE '%([^%]*)%'/", "\\0 OR sl.word_soundex = SOUNDEX('\\1')", $where_str);
+            $where_str = preg_replace("/mtpd\.metatags_keywords LIKE '%([^%]*)%'/", "\\0 OR (
+                sl.table_name = 'meta_tags_products_description' AND sl.column_name = 'metatags_keywords' AND sl.word_soundex = SOUNDEX('\\1')
+            )", $where_str);
         }
         if (ADVANCED_SEARCH_INCLUDE_METATAGS == 'true' && SOUNDEX_SEARCH_MATCH_METATAGS_PRODUCTS_DESCRIPTION == 'Yes') {
-            $where_str = preg_replace("/mtpd.metatags_description LIKE '%([^%]*)%'/", "\\0 OR sl.word_soundex = SOUNDEX('\\1')", $where_str);
+            $where_str = preg_replace("/mtpd.metatags_description LIKE '%([^%]*)%'/", "\\0 OR (
+                sl.table_name = 'meta_tags_products_description' AND sl.column_name = 'metatags_description' AND sl.word_soundex = SOUNDEX('\\1')
+            )", $where_str);
         }
     }
 }
