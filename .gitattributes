@@ -1,0 +1,9 @@
+/.github          export-ignore
+/.gitattributes   export-ignore
+/*.sh             export-ignore
+
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Configure diff output for .php files
+*.php diff=php
