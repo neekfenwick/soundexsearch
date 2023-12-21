@@ -134,3 +134,35 @@ You should see a series of 'success' messages in the header.  Once everything is
 - YOUR_ADMIN/soundex_search_uninstall.php
 
 If you see a security message such as "Sorry, your security clearance does not allow you to access this resource." then you are trying to run the uninstaller as a non-superuser Zen Cart user.
+
+# Zen Cart Backups & Maintenance
+
+Two things added to your Zen Cart MySQL database by this addon that do not normally exist are Stored Procedures and Triggers.  These are special database objects that live inside the database and are created during the initialisation of the addon (see above).
+
+If you are using a regular backup system that connects to your database and creates a backup from its contents you may need to check its configuration so that the things this addon creates are included in the backup.  In the case of having to restore from your backup, e.g. during a migration to another host or catastrophic data loss, you want the entire database to be restored.
+
+## Including Stored Procedures In A Backup
+
+The default action taken by `mysqldump` does not include stored procedures, so you need to make sure this option is turned on.  This can be achieved by using the `-R` option to `mysqldump`, see https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html#option_mysqldump_routines.
+
+Without this option, your backup may not contain the stored procedures called from the triggers included in this addon, and so a raw restore of the database would lead to SQL errors trying to use search on your site.  This can be worked around by deleting the `soundex_search` database table and visiting any admin page on your site, which would cause the initialisation process to run again and re-create any missing stored procedures.  It would be simpler to have them included in the backup in the first place.
+
+## Restoring a backup to a database using a different name
+
+When taking a backup using `mysqldump` triggers are included with the username and hostname of the database they were in.  This becomes problematic if you are restoring to a database using a different username, for example if you are migrating your database to a new host which uses a different username.  *Note* This is the database username found in `includes/configure.php`, not necessarily the same as an account name you have on the host machine, or an admin username you use to log into Zen Cart.
+
+For example, your dump may include a line like this:
+
+    /*!50003 CREATE*/ /*!50017 DEFINER=`my_username`@`localhost`*/ /*!50003 TRIGGER soundex_prod_name_update
+
+This line contains `my_username`, the username on the originating database, and `localhost`, the hostname used on that database.  When importing, you may encounter an error message such as this:
+
+    ERROR 1227 (42000) at line 96: Access denied; you need (at least one of) the SUPER, SET USER privilege(s) for this operation
+
+This can be caused by trying to run the above line where the `DEFINER` username isn't recognised.  This can be fixed by editing the dump file to either edit or remove the `DEFINER` line, for example by changing it to:
+
+    /*!50003 CREATE*/ /*!50017 DEFINER=`new_host_username`@`localhost`*/ /*!50003 TRIGGER soundex_prod_name_update
+
+or by removing it entirely:
+
+    /*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER soundex_prod_name_update

@@ -45,7 +45,7 @@ class zcObserverSoundexSearchObserver extends base
             $search_in_description = $searchOptions->search_in_description ?? false;
         } else {
             // 1.5.8 support, assume we are called from a GET request.
-            $search_in_description = $_GET['$search_in_description'];
+            $search_in_description = $_GET['search_in_description'] ?? false;
         }
 
         // Modify the built WHERE clause so the fields we know are mapped in the lookup table are matched
