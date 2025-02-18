@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-VERSION=1.0.3
+VERSION=1.0.4
 SRC=src
 DIST=soundexsearch-v${VERSION}.zip
 if [ -f "$DIST" ] ; then

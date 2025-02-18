@@ -234,9 +234,11 @@ function createSoundexSearchDBEntities() {
             AFTER UPDATE
             ON {$info['table_name']} FOR EACH ROW
             BEGIN
-                CALL {$proc_name} (
-                    NEW.{$info['key_name']}
-                );
+                IF NEW.{$info['column_name']} <> OLD.{$info['column_name']} THEN
+                    CALL {$proc_name} (
+                        NEW.{$info['key_name']}
+                    );
+                    END IF;
             END");
         checkSoundexSearchErrors($db, "Creating TRIGGER {$trigger_name}");
 

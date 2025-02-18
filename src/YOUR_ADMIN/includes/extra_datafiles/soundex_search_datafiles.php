@@ -4,8 +4,8 @@
  * Copyright (C) 2023, Nick Fenwick. All rights reserved.
  */
 
-define('SOUNDEX_SEARCH_CURRENT_VERSION', '1.0.3');
-define('SOUNDEX_SEARCH_CURRENT_UPDATE_DATE', '2023-12-21');
-define('SOUNDEX_SEARCH_NAME', 'SOUNDEX Search addon');
+const SOUNDEX_SEARCH_CURRENT_VERSION = '1.0.4';
+const SOUNDEX_SEARCH_CURRENT_UPDATE_DATE = '2025-02-18';
+const SOUNDEX_SEARCH_NAME = 'SOUNDEX Search addon';
 
-define('TABLE_SOUNDEX_LOOKUP', DB_PREFIX . 'soundex_lookup');
+const TABLE_SOUNDEX_LOOKUP = DB_PREFIX . 'soundex_lookup';
