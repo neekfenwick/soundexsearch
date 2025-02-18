@@ -6,10 +6,9 @@ This software is distributed under the [GPL 3.0](gpl-3.0.md) license.
 
 ## Compatibility
 
-| Addon Version | Zen Cart Version |
-|---------------|------------------|
-| v1.0.0 | Zen Cart 1.5.8 |
-| v1.0.1 | Zen Cart 1.5.8 |
+| Addon Version    | Zen Cart Version |
+|------------------|------------------|
+| v1.0.0 and later | Zen Cart 1.5.8 |
 
 Minimum version of Zen Cart is 1.5.8, because of the extra data passed to the notifier hooks.  See "Earlier Zen Cart Versions" later.
 
